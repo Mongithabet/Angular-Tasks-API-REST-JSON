@@ -1,14 +1,29 @@
 {
-    "tasks":[
+  "tasks": [
     {
-        "id":1,
-        "label":"Learn Angular",
-        "completed":false
+      "label": "Java Web",
+      "completed": false,
+      "id": 3
     },
     {
-        "id":2,
-        "label":"Learn Spring boot",
-        "completed":false
+      "label": "Angular",
+      "completed": true,
+      "id": 4
+    },
+    {
+      "label": "React Js",
+      "completed": false,
+      "id": 5
+    },
+    {
+      "label": "Oracle",
+      "completed": true,
+      "id": 6
+    },
+    {
+      "label": "ff",
+      "completed": true,
+      "id": 7
     }
-]
+  ]
 }
