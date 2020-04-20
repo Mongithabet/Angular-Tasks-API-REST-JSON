@@ -3,19 +3,19 @@
     <h3>List of Tasks</h3>
     </div>
     <div  class="col-md-6 text-right">
-        <button (click)="showForm" class="btn btn-dark btn-sm">
+        <button (click)="showForm=!showForm" class="btn btn-dark btn-sm">
             <i class="fa fa-plus"></i>
             New Task</button>
     </div>
 </div>
-<div class="row">
+<div *ngIf="showForm"  class="row">
     <div class="col-md-6 mx-auto">
 
         <div class="form-group">
             <label for="label">Label</label>
             <input [(ngModel)]="myTask.label" id="label" type="text" class="form-control">
         </div>
-        <div class="form-check my-2">
+        <div  class="form-check my-2">
           <label class="form-check-label">
             <input [(ngModel)]="myTask.completed" type="checkbox" class="form-check-input"  >
            Completed
@@ -24,17 +24,18 @@
         <button *ngIf="editForm" (click)="updateTask()" class="btn btn-warning btn-block">
             <i class="fa fa-refresh"></i>
             Update Task</button>
-        <button *ngIf="!editForm" (click)="persistTask()" class="btn btn-success btn-block">
+        <button *ngIf="!editForm && showForm " (click)="persistTask()" class="btn btn-success btn-block">
             <i class="fa fa-send"></i>
             New Task</button>
 
     </div>
 </div>
-<div *ngIf="!showForm" class="row">
+<div class="row">
     <div class="col-md-6 mx-auto">
+        <input [(ngModel)]="searchText"  (keyup)="searchTask()" placeholder="Search..." type="text" class="form-control">
       <ul class="list-group">
          
-          <li *ngFor="let task of tasks"  class="list-group-item d-flex justify-content-between align-items-center">
+          <li *ngFor="let task of ResultTasks"  class="list-group-item d-flex justify-content-between align-items-center">
            <button (click)="editTask(task)" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></button>
             {{task.label}}
               <span (click)="ToggleCompleted(task)" [ngClass]="{

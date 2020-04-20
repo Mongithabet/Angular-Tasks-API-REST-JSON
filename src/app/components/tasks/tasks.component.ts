@@ -8,13 +8,17 @@ import { Task } from 'src/app/models/task';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
+  searchText = '';
   editForm = false;
+
   showForm=false;
   myTask: Task={
     label:'',
     completed:false
   }
 tasks: Task[] = [];
+ResultTasks: Task[] = [];
+
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
@@ -22,7 +26,9 @@ tasks: Task[] = [];
   }
  getTasks(){
    this.taskService.findAll()
-   .subscribe((tasks)=>{this.tasks= tasks})
+   .subscribe((tasks)=>{
+     this.ResultTasks=this.tasks=tasks
+   })
  }
  
 deleteTask(id){
@@ -36,6 +42,7 @@ persistTask(){
   .subscribe((task) =>{
    this.tasks = [task, ...this.tasks],
    this.resetTask();
+   this.showForm=!this.showForm
   });
 }
 resetTask(){
@@ -64,5 +71,10 @@ editTask(task){
 
       })
     }
+    searchTask(){
+     this.ResultTasks = this.tasks.filter(
+       task=>task.label.toLowerCase().includes(this.searchText.toLowerCase()))
+  }
+    
 }
 
